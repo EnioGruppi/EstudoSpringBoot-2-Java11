@@ -2,14 +2,24 @@ package com.hopecompany.webservice.entities;
 
 import java.io.Serializable;
 
+/*sempre quando importar dar prefrencia p especificação*/
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
+	
 	
 	public User() {
 	}
@@ -87,6 +97,6 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	
 }

@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hopecompany.webservice.entities.enums.OrderStatus;
 
 @Entity
 @Table(name = "tb_order")
@@ -24,7 +25,9 @@ public class Order implements Serializable {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-
+	
+	private Integer orderStatus;
+	
 	// Informa que é uma relação muitos para um
 	@ManyToOne
 	// informa a chave estrangeira
@@ -35,13 +38,25 @@ public class Order implements Serializable {
 		super();
 	}
 
-	public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		super();
 		this.id = id;
 		this.moment = moment;
+		//atribuir o orderstatus pelo set
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
 
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
+	}
+		
 	public Long getId() {
 		return id;
 	}
